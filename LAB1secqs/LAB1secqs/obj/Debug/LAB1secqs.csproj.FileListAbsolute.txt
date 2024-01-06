@@ -1,0 +1,9 @@
+D:\220953508\LAB1secqs\LAB1secqs\bin\Debug\LAB1secqs.exe.config
+D:\220953508\LAB1secqs\LAB1secqs\bin\Debug\LAB1secqs.exe
+D:\220953508\LAB1secqs\LAB1secqs\bin\Debug\LAB1secqs.pdb
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.csprojResolveAssemblyReference.cache
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.Form1.resources
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.Properties.Resources.resources
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.csproj.GenerateResource.Cache
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.exe
+D:\220953508\LAB1secqs\LAB1secqs\obj\Debug\LAB1secqs.pdb
