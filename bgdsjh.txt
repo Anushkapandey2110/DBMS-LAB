@@ -1,0 +1,251 @@
+
+SQL> create table PERSON(driver_id varchar(30),name varchar(50),Address varchar(100));
+
+Table created.
+
+SQL> alter PERSON
+  2  primary key(driver_id);
+alter PERSON
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command
+
+
+SQL> alter table PERSON add primary key(driver_id);
+
+Table altered.
+
+SQL> create table CAR(regno varchar(20),model varchar(30),year int)
+  2  where primary key(regno);
+where primary key(regno)
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table CAR(regno varchar(20),model varchar(30),year int)
+  2  primary key(regno)
+  3  ;
+primary key(regno)
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table CAR(regno varchar(20),model varchar(30),year int)
+  2  create table CAR(regno varchar(20),model varchar(30),year int);
+create table CAR(regno varchar(20),model varchar(30),year int)
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table CAR(regno varchar(20),model varchar(30),year int);
+
+Table created.
+
+SQL> create Table ACCIDENT(report_number int,accd_date date,location varchar(50));
+
+Table created.
+
+SQL> create Table OWNS(driver_id varchar(30
+  2
+SQL>
+SQL>
+SQL>
+SQL> create Table OWNS(driver_id varchar(30),regno varchar(20));
+
+Table created.
+
+SQL> create Table PARTICIPATED(driver_id varchar(30), regno varchar(20), report_number int,damage_amounr int);
+
+Table created.
+
+SQL> create Table PARTICIPATED(driver_id varchar(30), regno varchar(20), report_number int,damage_amounr int, primary key(driver_id,regno,report_number),foreign key(driver_id refers PERSON, regno refers CAR, report_number refers ACCIDENT, driver_id refers OWNS);
+create Table PARTICIPATED(driver_id varchar(30), regno varchar(20), report_number int,damage_amounr int, primary key(driver_id,regno,report_number),foreign key(driver_id refers PERSON, regno refers CAR, report_number refers ACCIDENT, driver_id refers OWNS)
+                                                                                                                                                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> drop PARTICIPATED
+  2  ;
+drop PARTICIPATED
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> drop PARTICIPATED;
+drop PARTICIPATED
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> create Table PARTICIPATED(driver_id varchar(30), regno varchar(20), report_number int,damage_amounr int);
+create Table PARTICIPATED(driver_id varchar(30), regno varchar(20), report_number int,damage_amounr int)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> alter table CAR add primary key(regno);
+
+Table altered.
+
+SQL> alter table ACCIDENT add primary key(report_number);
+
+Table altered.
+
+SQL> alter table OWNS add primary key(driver_id , regno);
+
+Table altered.
+
+SQL> alter table PARTICIPATED add primary key(driver_id,regno,report_number);
+
+Table altered.
+
+SQL> alter table OWNS add foreign key(driver_id refers table PERSON , regno refers table CAR);
+alter table OWNS add foreign key(driver_id refers table PERSON , regno refers table CAR)
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table OWNS add foreign key(driver_id refeerences table PERSON , regno refeerences table CAR);
+alter table OWNS add foreign key(driver_id refeerences table PERSON , regno refeerences table CAR)
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table OWNS add foreign key(driver_id references  PERSON , regno references  CAR);
+alter table OWNS add foreign key(driver_id references  PERSON , regno references  CAR)
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table OWNS add foreign key(driver_id references PERSON , regno references CAR);
+alter table OWNS add foreign key(driver_id references PERSON , regno references CAR)
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table OWNS add foreign key(driver_id references PERSON);
+alter table OWNS add foreign key(driver_id references PERSON)
+                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> alter table OWNS add foreign key(driver_id) references PERSON ;
+
+Table altered.
+
+SQL> alter table OWNS add foreign key(regno) references CAR ;
+
+Table altered.
+
+SQL> alter table PARTICIPATED add foreign key(driver_id ) references PERSON , foreign key(regno) references CAR ;
+alter table PARTICIPATED add foreign key(driver_id ) references PERSON , foreign key(regno) references CAR
+                                                                       *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table PARTICIPATED add foreign key(driver_id ) references PERSON ; foreign key(regno) references CAR ;
+alter table PARTICIPATED add foreign key(driver_id ) references PERSON ; foreign key(regno) references CAR
+                                                                       *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table PARTICIPATED add foreign key(driver_id ) references PERSON ;
+
+Table altered.
+
+SQL> alter table PARTICIPATED add  foreign key(regno) references CAR ;
+
+Table altered.
+
+SQL> alter table PARTICIPATED add  foreign key(report_number) references ACCIDENT ;
+
+Table altered.
+
+SQL> insert into PERSON
+  2  values('1000' , 'Anushka' , 'MIT manipal');
+
+1 row created.
+
+SQL> values('1670' , 'Harshita' , 'MIT manipal');
+SP2-0734: unknown command beginning "values('16..." - rest of line ignored.
+SQL> insert into PERSON values ^Z^Z^Z^Z^Z
+SQL> insert into PERSON values('1670', 'Harshita' ,'MIT Manipal');
+
+1 row created.
+
+SQL> insert into PERSON values('1390', 'Dhruv' ,'MIT Manipal');
+
+1 row created.
+
+SQL> insert into PERSON values('1010', 'Lakshya' ,'KMC Manipal');
+
+1 row created.
+
+SQL> insert into PERSON values('13230', 'Lakshit' ,'Lucknow');
+
+1 row created.
+
+SQL> insert into CAR values('220953508','verna',2008);
+
+1 row created.
+
+SQL> insert into CAR values('220953522','audis6',2018);
+
+1 row created.
+
+SQL> insert into CAR values('20953504','mclaren',2024);
+
+1 row created.
+
+SQL> insert into CAR values('20954604','jeep compass',2019);
+
+1 row created.
+
+SQL> insert into CAR values('24768984','thar',2020);
+
+1 row created.
+
+SQL> insert into ACCIDENT (123,12-12-23,Panvel
+  2  insert into ACCIDENT values (123,12-12-23,Panvel);
+insert into ACCIDENT (123,12-12-23,Panvel
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into ACCIDENT values (123,12-12-23,Panvel);
+insert into ACCIDENT values (123,12-12-23,Panvel)
+                                          *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into ACCIDENT values (123,12-12-23,'Panvel');
+insert into ACCIDENT values (123,12-12-23,'Panvel')
+                                      *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL> insert into ACCIDENT values (123,12-012-23,'Panvel');
+insert into ACCIDENT values (123,12-012-23,'Panvel')
+                                       *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL>
