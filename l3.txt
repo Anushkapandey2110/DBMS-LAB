@@ -1,0 +1,505 @@
+
+SQL> insert all into Car
+  2  values(986 , 'swift' , 2020)
+  3  into Car (765 , 'verna' , 2023)
+  4  into Car (325 , 'maruti' , 2019)
+  5  into Car (567 , 'nissan' ,2021)
+  6  select * from dual;
+into Car (765 , 'verna' , 2023)
+          *
+ERROR at line 3:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> insert all into Car
+  2  values('986' , 'swift' , 2020)
+  3  into Car ('567' , 'nissan' ,2021)
+  4  into Car ('325' , 'maruti' , 2019)
+  5  into Car ('765' , 'verna' , 2023)
+  6  select * from dual;
+into Car ('567' , 'nissan' ,2021)
+          *
+ERROR at line 3:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> desc Car
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                     NOT NULL VARCHAR2(20)
+ MODEL                                              VARCHAR2(30)
+ YEAR                                               NUMBER(38)
+
+SQL> insert all into Car
+  2  values(986 , 'swift' , 2020)
+  3  into Car values (765 , 'verna' , 2023)
+  4  into Car values ('325' , 'maruti' , 2019)
+  5  into Car values ('567' , 'nissan' , 2021)
+  6  into Car values ('3453' , 'audi , 2018
+  7  )
+  8  select * from dual ;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert all into Car
+  2  values('986' , 'swift' , 2020)
+  3  into Car values ('765' , 'verna' , 2023)
+  4  into Car values ('3453' , 'audi , 2018)
+  5  into Car values ('567' , 'nissan' , 2021)
+  6  into Car values ('325' , 'maruti' , 2019)
+  7  select * from dual;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert all into Car
+  2  values(986 , 'swift' , 2020)
+  3  into Car values ('765' , 'verna' , 2023)
+  4  into Car values ('325' , 'maruti' , 2019)
+  5  into Car values ('567' , 'nissan' , 2021)
+  6  into Car values ('3453' , 'audi' , 2018)
+  7  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc Accident
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REPORT_NUMBER                             NOT NULL NUMBER(38)
+ ACCD_DATE                                          DATE
+ LOCATION                                           VARCHAR2(50)
+
+SQL> insert all into Accident
+  2  values (35435,to_date('2020-feb-24','yyyy-mm-dd'),'panvel')
+  3  into Accident values(25347,to_date('2023-nov-10','yyyy-mm-dd'),'delhi')
+  4  into Accident values (436392,to_date('2019-march-7','yyyy-mm-dd'),'mumbai')
+  5  into Accident values (244372,to_date('2021-june-23','yyyy-mm-dd'),'lucknow')
+  6  into Accident values (4768598,to_date('2018-july-18','yyyy-mm-dd'),'dubai')
+  7  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc Owns
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DRIVER_ID                                 NOT NULL VARCHAR2(30)
+ REGNO                                     NOT NULL VARCHAR2(20)
+
+SQL> insert all into Owns
+  2  values('1001','986')
+  3  into Owns values('1002','765')
+  4  into Owns values('1003','325')
+  5  into Owns values('1004', '567')
+  6  into Owns values('1005', '3453')
+  7  select * from dual;
+
+5 rows created.
+
+SQL> desc Participated
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DRIVER_ID                                 NOT NULL VARCHAR2(30)
+ REGNO                                     NOT NULL VARCHAR2(20)
+ REPORT_NUMBER                             NOT NULL NUMBER(38)
+ DAMAGE_AMOUNR                                      NUMBER(38)
+
+SQL> insert all into Participated('1001','986',35435,12000)
+  2  into Participated values('1002','765',25347,34000)
+  3  into Participated values ('1003','325',436392,56000)
+  4  into Participated values('1004','567',244372,15000)
+  5  into Participated values ('1005','3453',4768598,120000)
+  6  select * from dual;
+insert all into Participated('1001','986',35435,12000)
+                             *
+ERROR at line 1:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> insert all into Participated('1001','986',35435,12000)
+  2  insert all into
+  3  ;
+insert all into Participated('1001','986',35435,12000)
+                             *
+ERROR at line 1:
+ORA-01747: invalid user.table.column, table.column, or column specification
+
+
+SQL> insert all into Participated
+  2  values('1001','986',35435,12000)
+  3  into Participated values('1002','765',25347,34000)
+  4  into Participated values ('1003','325',436392,56000)
+  5  into Participated values('1004','567',244372,15000)
+  6  into Participated values ('1005','3453',4768598,120000)
+  7  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> alter table Owns add foreign key(driver_id) references Person;
+alter table Owns add foreign key(driver_id) references Person
+                     *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table
+
+
+SQL> alter table Participated add foreign key(driver_id) references Person;
+alter table Participated add foreign key(driver_id) references Person
+                             *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table
+
+
+SQL> update Participated
+  2  set damage_amounr=25000\
+  3  where regno ='1002';
+set damage_amounr=25000\
+                       *
+ERROR at line 2:
+ORA-00911: invalid character
+
+
+SQL> update Participated
+  2  set damage_amounr=25000
+  3  where regno='1002';
+
+0 rows updated.
+
+SQL> update Participated
+  2  set damage_amounr=25000
+  3  where regno='325';
+
+1 row updated.
+
+SQL> alter table Participated
+  2  drop Column report_number;
+drop Column report_number
+            *
+ERROR at line 2:
+ORA-12991: column is referenced in a multi-column constraint
+
+
+SQL> alter table Person
+  2  drop column Name;
+
+Table altered.
+
+SQL> alter table Person
+  2  add column Name_refresh
+  3  ;
+add column Name_refresh
+    *
+ERROR at line 2:
+ORA-00904: : invalid identifier
+
+
+SQL> add  Name_refresh varchar(20);
+SP2-0734: unknown command beginning "add        Name_..." - rest of line ignored.
+SQL> add Name_refresh varchar(20);
+SP2-0734: unknown command beginning "add Name_r..." - rest of line ignored.
+SQL> alter table Person
+  2  add Name_refresh varchar(20);
+
+Table altered.
+
+SQL> alter table Person
+  2  add Name_refresh('anushka');
+add Name_refresh('anushka')
+                *
+ERROR at line 2:
+ORA-00902: invalid datatype
+
+
+SQL> add Name_refresh'anushka';
+SP2-0734: unknown command beginning "add Name_r..." - rest of line ignored.
+SQL> alter table Person
+  2  add Name_refresh'anushka';
+add Name_refresh'anushka'
+                *
+ERROR at line 2:
+ORA-00902: invalid datatype
+
+
+SQL> alter table Participated
+  2  add check (report_number>0);
+
+Table altered.
+
+SQL> insert into table Person(Name_refresh)
+  2  values('anushka');
+insert into table Person(Name_refresh)
+            *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> insert into Person(Name_refresh)
+  2  values('Anushka','Harshita');
+insert into Person(Name_refresh)
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> insert into Person(Name_refresh)
+  2  values('anushka');
+insert into Person(Name_refresh)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("CCE508"."PERSON"."DRIVER_ID")
+
+
+SQL> alter table Person
+  2  ;
+
+*
+ERROR at line 2:
+ORA-02210: no options specified for ALTER TABLE
+
+
+SQL> desc Person
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DRIVER_ID                                 NOT NULL VARCHAR2(30)
+ ADDRESS                                            VARCHAR2(100)
+ NAME_REFRESH                                       VARCHAR2(20)
+
+SQL> insert all into Person
+  2  values('1001',''anushka','manipal')
+  3  select * from dual;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert all into Person
+  2  values('1001','anushka','manipal')
+  3  select * from dual;
+insert all into Person
+*
+ERROR at line 1:
+ORA-00001: unique constraint (CCE508.SYS_C0040572) violated
+
+
+SQL> insert into Person(Name_refresh)values('anushka');
+insert into Person(Name_refresh)values('anushka')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("CCE508"."PERSON"."DRIVER_ID")
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table customer;
+create table customer
+                    *
+ERROR at line 1:
+ORA-00906: missing left parenthesis
+
+
+SQL> create table customer
+  2  (cust# int, cname varchar(50) , city varchar(30));
+
+Table created.
+
+SQL> create table orders (order# int, odate date,cust# int , ord_amt int);
+
+Table created.
+
+SQL> create table Item (item # int,unitprice int);
+create table Item (item # int,unitprice int)
+                        *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> create table Item (item# int,unitprice int);
+
+Table created.
+
+SQL> create table order_items(order# int,warehouse# int,shipdate date);
+
+Table created.
+
+SQL> create table warehouse(warehouse# int,city varchar(30));
+
+Table created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert all into customer
+  2  values(1234,'anushka','manipal')
+  3  into customer values(4567,'aayushi','lucknow')
+  4  into customer values(7890,'mamata','jaipur')
+  5  into customer values(5678,'ayush','patna')
+  6  into customer values(6789,'aishni','bangalore')
+  7  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert all into orders
+  2  values(1,to_date('2024-jan-1','yyyy-mm-dd'),1234,1000)
+  3  into orders values(2,to_date('2024-jan-5','yyyy-mm-dd'),4567,5000)
+  4  into orders values(3,to_date('2024-jan-10','yyyy-mm-dd'),7890,25000)
+  5  into orders values(4,to_date('2024-jan-20','yyyy-mm-dd'),5678,48000)
+  6  into orders values(5,to_date('2023-dec-25','yyyy-mm-dd'),6789,50000)
+  7  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert all into item values(220,1000)
+  2  into item values(234,500)
+  3  into item values(567,5000)
+  4  into item values(6748,24000)
+  5  into item values(457,50000)
+  6  select * from dual;
+
+5 rows created.
+
+SQL> insert all into order_items values(1,234)
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert all into order_items values(1,220)
+  2  into order_items values(2,234)
+  3  into order_items values(3,567)
+  4  into order_items values(4,6748)
+  5  into order_items values(5,457)
+  6  select * from dual;
+insert all into order_items values(1,220)
+                *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert all into order_items values(1,220,1)
+  2  into order_items values(2,234,10)
+  3  into order_items values(3,567,5)
+  4  into order_items values(4,6748,2)
+  5  into order_items values(5,457,1)
+  6  select * from dual;
+insert all into order_items values(1,220,1)
+                                   *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL> drop table order_items
+  2  ;
+
+Table dropped.
+
+SQL> create table order_items(order# int, item# int , qty int);
+
+Table created.
+
+SQL> create table shipment(order# int,warehouse# int,shipdate date);
+
+Table created.
+
+SQL> insert all into order_items values(1,220,1)
+  2  into order_items values(2,234,10)
+  3  into order_items values(3,567,5)
+  4  into order_items values(4,6748,2)
+  5  into order_items values(5,457,1)
+  6  select * from dual;
+
+5 rows created.
+
+SQL> select * from order_items
+  2  ;
+
+    ORDER#      ITEM#        QTY
+---------- ---------- ----------
+         1        220          1
+         2        234         10
+         3        567          5
+         4       6748          2
+         5        457          1
+
+SQL> insert all into Shipment values(1,111,('2024-jan-5','yyyy-mm-dd'))
+  2  insert into shipment values(2,222,('2024-jan-10','yyyy-mm-dd'))
+  3  ;
+insert all into Shipment values(1,111,('2024-jan-5','yyyy-mm-dd'))
+                                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> insert all into Shipment values(1,111,('2024-jan-7','yyyy-mm-dd'))
+  2  insert into shipment values(2,222,('2024-jan-12','yyyy-mm-dd'))
+  3  insert into shipment values(3,333,('2024-jan-17','yyyy-mm-dd'))
+  4  insert into shipment values(4,444,('2024-jan-22','yyyy-mm-dd'))
+  5  insert into shipment values(5,555,('2023-jan-28','yyyy-mm-dd'))
+  6  select * from dual;
+insert all into Shipment values(1,111,('2024-jan-7','yyyy-mm-dd'))
+                                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> insert all into Shipment values(1,111,('2024-jan-7','yyyy-mm-dd') )
+  2  insert into shipment values(2,222,('2024-jan-12','yyyy-mm-dd') )
+  3  insert into shipment values(3,333,('2024-jan-17','yyyy-mm-dd') )
+  4  insert into shipment values(4,444,('2024-jan-22','yyyy-mm-dd') )
+  5  insert into shipment values(5,555,('2023-jan-28','yyyy-mm-dd') )
+  6  select * from dual;
+insert all into Shipment values(1,111,('2024-jan-7','yyyy-mm-dd') )
+                                                   *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> insert all into shipment values(1,111,to_date('2024-jan-7','yyyy-mm-dd'))
+  2  insert into shipment values(2,222,to_date('2024-jan-12','yyyy-mm-dd'))
+  3  insert into shipment values(3,333,to_date('2024-jan-17','yyyy-mm-dd'))
+  4  insert into shipment values(3,333,to_date('2024-jan-17','yyyy-mm-dd'))
+  5  insert into shipment values(4,444,to_date('2024-jan-22','yyyy-mm-dd'))
+  6  insert into shipment values(5,555,to_date('2023-jan-28','yyyy-mm-dd'))
+  7  select * from dual;
+insert into shipment values(2,222,to_date('2024-jan-12','yyyy-mm-dd'))
+*
+ERROR at line 2:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert all into shipment values(1,111,to_date('2024-jan-7','yyyy-mm-dd'))
+  2   into shipment values(2,222,to_date('2024-jan-12','yyyy-mm-dd'))
+  3   into shipment values(3,333,to_date('2024-jan-17','yyyy-mm-dd'))
+  4   into shipment values(4,444,to_date('2024-jan-22','yyyy-mm-dd'))
+  5   into shipment values(5,555,to_date('2023-jan-28','yyyy-mm-dd'))
+  6  select * from dual;
+
+5 rows created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>
